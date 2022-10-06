@@ -17,22 +17,26 @@ class Base(models.Model):
         abstract = True
 
 class Servico(Base):
-    ICONE_CHOISES = (
-        ('lni-cog', 'Engrenagem'),
-        ('lni-stats-up', 'Gráfico'),
-        ('lni-users', 'Usuários'),
-        ('lni-layers', 'Design'),
-        ('lni-mobile', 'Mobile'),
-        ('lni-rocket', 'Foguete'),
+
+   ICONE_CHOISES = (
+      ('lni-rocket', 'Foguete'),
+      ('lni-laptop-phone', 'Mobile'),
+      ('lni-cog', 'Engrenagem'),
+      ('lni-leaf', 'Design'),
+      ('lni-layers', 'Folhas'),
+      ('lni-leaf', 'Design'),
+      ('lni-package', 'Caixa'),
+      ('lni-drop','Gota'),
+      ('lni-star', 'Estrela'),
     )
-    servico = models.CharField('Serviço', max_length=100)
-    descricao = models.TextField('Descrição', max_length=200)
-    icone = models.CharField('Icone', max_length=12, choices=ICONE_CHOISES)
-    class Meta:
+   servico = models.CharField('Serviço', max_length=100)
+   descricao = models.TextField('Descrição', max_length=200)
+   icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
+   class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
 
-    def __str__(self):
+   def __str__(self):
         return self.servico
 
 class Cargo(Base):
@@ -43,6 +47,7 @@ class Cargo(Base):
 
     def __str__(self):
         return self.cargo
+
 
 class Funcionario(Base):
     nome = models.CharField('Nome', max_length=100)
@@ -56,6 +61,56 @@ class Funcionario(Base):
     class Meta:
         verbose_name = 'Funcionário'
         verbose_name_plural = 'Funcionários'
+
+    def __str__(self):
+        return self.nome
+
+class Recursos(Base):
+
+   ICONE_CHOISES = (
+      ('lni-rocket', 'Foguete'),
+      ('lni-laptop-phone', 'Mobile'),
+      ('lni-cog', 'Engrenagem'),
+      ('lni-leaf', 'Design'),
+      ('lni-layers', 'Folhas'),
+      ('lni-leaf', 'Design'),
+      ('lni-package', 'Caixa'),
+      ('lni-drop','Gota'),
+      ('lni-star', 'Estrela'),
+    )
+    
+   recurso = models.CharField('Serviço', max_length=100)
+   descricao = models.TextField('Descrição', max_length=200)
+   icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
+   class Meta:
+        verbose_name = 'Recurso'
+        verbose_name_plural = 'Recursos'
+
+   def __str__(self):
+        return self.recurso
+
+class Produtos(Base):
+    
+    ICONE_CHOISES = (
+      ('lni-rocket', 'Foguete'),
+      ('lni-laptop-phone', 'Mobile'),
+      ('lni-cog', 'Engrenagem'),
+      ('lni-leaf', 'Design'),
+      ('lni-layers', 'Folhas'),
+      ('lni-leaf', 'Design'),
+      ('lni-package', 'Caixa'),
+      ('lni-drop','Gota'),
+      ('lni-star', 'Estrela'),
+    )
+    nome = models.CharField('Nome', max_length=50)
+    preco = models.CharField('Preço', max_length=50)
+    descricao = models.TextField('Descrição', max_length=200)
+    icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
+    estoque = models.IntegerField('Estoque', null=True)
+ 
+    class Meta:
+        verbose_name = 'Produto'
+        verbose_name_plural = 'Produtos'
 
     def __str__(self):
         return self.nome
