@@ -1,7 +1,7 @@
 from django.urls import path 
-from .views import IndexView, atualiza_estoque
+
+from .views import IndexView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('/<int:id>', atualiza_estoque, name="index")
 ]

@@ -17,21 +17,17 @@ class Base(models.Model):
         abstract = True
 
 class Servico(Base):
-
    ICONE_CHOISES = (
-      ('lni-rocket', 'Foguete'),
-      ('lni-laptop-phone', 'Mobile'),
-      ('lni-cog', 'Engrenagem'),
-      ('lni-leaf', 'Design'),
-      ('lni-layers', 'Folhas'),
-      ('lni-leaf', 'Design'),
-      ('lni-package', 'Caixa'),
-      ('lni-drop','Gota'),
-      ('lni-star', 'Estrela'),
-    )
+        ('lni-cog','Engrenagem'),
+        ('lni-stats-up','Gráfico'),
+        ('lni-users', 'Usuários'),
+        ('lni-layers', 'Design'),
+        ('lni-mobile', 'Mobile'),
+        ('lni-rocket', 'Foguete'),
+        )
    servico = models.CharField('Serviço', max_length=100)
    descricao = models.TextField('Descrição', max_length=200)
-   icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
+   icone = models.CharField('Icone', max_length=12, choices=ICONE_CHOISES)
    class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
@@ -73,44 +69,15 @@ class Recursos(Base):
       ('lni-cog', 'Engrenagem'),
       ('lni-leaf', 'Design'),
       ('lni-layers', 'Folhas'),
-      ('lni-leaf', 'Design'),
-      ('lni-package', 'Caixa'),
-      ('lni-drop','Gota'),
-      ('lni-star', 'Estrela'),
+      ('lni-leaf', 'Design')
     )
     
    recurso = models.CharField('Serviço', max_length=100)
    descricao = models.TextField('Descrição', max_length=200)
-   icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
+   icone = models.CharField('Icone', max_length=16, choices=ICONE_CHOISES)
    class Meta:
         verbose_name = 'Recurso'
         verbose_name_plural = 'Recursos'
 
    def __str__(self):
         return self.recurso
-
-class Produtos(Base):
-    
-    ICONE_CHOISES = (
-      ('lni-rocket', 'Foguete'),
-      ('lni-laptop-phone', 'Mobile'),
-      ('lni-cog', 'Engrenagem'),
-      ('lni-leaf', 'Design'),
-      ('lni-layers', 'Folhas'),
-      ('lni-leaf', 'Design'),
-      ('lni-package', 'Caixa'),
-      ('lni-drop','Gota'),
-      ('lni-star', 'Estrela'),
-    )
-    nome = models.CharField('Nome', max_length=50)
-    preco = models.CharField('Preço', max_length=50)
-    descricao = models.TextField('Descrição', max_length=200)
-    icone = models.CharField('Icone', max_length=20, choices=ICONE_CHOISES)
-    estoque = models.IntegerField('Estoque', null=True)
- 
-    class Meta:
-        verbose_name = 'Produto'
-        verbose_name_plural = 'Produtos'
-
-    def __str__(self):
-        return self.nome
