@@ -17,22 +17,22 @@ class Base(models.Model):
         abstract = True
 
 class Servico(Base):
-   ICONE_CHOISES = (
-        ('lni-cog','Engrenagem'),
-        ('lni-stats-up','Gráfico'),
+    ICONE_CHOISES = (
+        ('lni-cog', 'Engrenagem'),
+        ('lni-stats-up', 'Gráfico'),
         ('lni-users', 'Usuários'),
         ('lni-layers', 'Design'),
         ('lni-mobile', 'Mobile'),
         ('lni-rocket', 'Foguete'),
-        )
-   servico = models.CharField('Serviço', max_length=100)
-   descricao = models.TextField('Descrição', max_length=200)
-   icone = models.CharField('Icone', max_length=12, choices=ICONE_CHOISES)
-   class Meta:
+    )
+    servico = models.CharField('Serviço', max_length=100)
+    descricao = models.TextField('Descrição', max_length=200)
+    icone = models.CharField('Icone', max_length=12, choices=ICONE_CHOISES)
+    class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
 
-   def __str__(self):
+    def __str__(self):
         return self.servico
 
 class Cargo(Base):
@@ -43,7 +43,6 @@ class Cargo(Base):
 
     def __str__(self):
         return self.cargo
-
 
 class Funcionario(Base):
     nome = models.CharField('Nome', max_length=100)
@@ -60,24 +59,21 @@ class Funcionario(Base):
 
     def __str__(self):
         return self.nome
-
-class Recursos(Base):
-
-   ICONE_CHOISES = (
-      ('lni-rocket', 'Foguete'),
-      ('lni-laptop-phone', 'Mobile'),
-      ('lni-cog', 'Engrenagem'),
-      ('lni-leaf', 'Design'),
-      ('lni-layers', 'Folhas'),
-      ('lni-leaf', 'Design')
-    )
     
-   recurso = models.CharField('Serviço', max_length=100)
-   descricao = models.TextField('Descrição', max_length=200)
-   icone = models.CharField('Icone', max_length=16, choices=ICONE_CHOISES)
-   class Meta:
-        verbose_name = 'Recurso'
-        verbose_name_plural = 'Recursos'
 
-   def __str__(self):
-        return self.recurso
+class Produtos(Base):
+    nome = models.CharField('Nome', max_length=100)
+    descricao = models.TextField('Descrição', max_length=200)
+    preco = models.IntegerField('Preço', null=True)
+    imagem = StdImageField('Imagem', upload_to=get_file_path, null=True )
+    estoque = models.IntegerField('Estoque', null=True)
+    
+    class Meta:
+        verbose_name = 'Produto'
+        verbose_name_plural = 'Produtos'
+
+    def __str__(self):
+        return self.nome
+class Saldo:
+    saldo_inicial = models.IntegerField('Saldo inicial da empresa', null=True)
+    

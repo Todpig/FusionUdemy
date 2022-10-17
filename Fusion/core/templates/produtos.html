@@ -1,0 +1,35 @@
+{% load static %}
+<section id="pricing" class="section-padding">
+    <div class="container">
+      <div class="section-header text-center">          
+        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Produtos</h2>
+        <div class="shape wow fadeInDown" data-wow-delay="0.3s"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <form>
+            {% csrf_token %}   
+          {% for p in produtos %}
+
+          <div class="table wow fadeInLeft" data-wow-delay="1.2s">
+            <div class="team-img">
+              <img class="img-fluid" src="{{ p.imagem.url }}" alt="{{ p.nome }}">
+            </div>
+            <div class="pricing-header">
+              <p class="price-value">{{ p.preco }}R$</p>
+            </div>
+            <div class="title">
+              <h3>{{ p.nome }}</h3>
+            </div>
+            <ul class="description">
+              <li>{{ p.descricao }}</li>
+              <li><span> Ainda restam {{ p.estoque }} disponíveis no estoque</span></li>
+            </ul>
+            <button class="btn btn-common">Compre já</button>
+          </div> 
+        </form>
+            {% endfor %}
+        </div>        
+      </div>
+    </div>
+  </section>
