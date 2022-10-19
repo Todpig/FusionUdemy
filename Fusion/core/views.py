@@ -1,6 +1,7 @@
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.shortcuts import render
 
 from .models import Funcionario, Servico, Produtos
 from .forms import ContatoForm
@@ -29,6 +30,7 @@ class IndexView(FormView):
         
 def atualiza_estoque(request, id):
     novo_estoque = Produtos.objects.get(id=id)
-    if request.method  == 'POST':
-        novo_estoque = novo_estoque - 1
+    if request.method == 'POST':
+        novo_estoque.estoque = novo_estoque.estoque - 1
         novo_estoque.save()
+    return render(request, 'index.html')
