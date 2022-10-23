@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import render
 
-from .models import Funcionario, Servico, Produtos
+from .models import Funcionario, Servico, Produtos, Saldo
 from .forms import ContatoForm
 
 class IndexView(FormView):
@@ -14,8 +15,9 @@ class IndexView(FormView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['servicos'] = Servico.objects.order_by('?').all() ##.order_by('?') faz embaralhar os dados apresentados no template
-        context['funcionarios'] = Funcionario.objects.order_by('?').all()
-        context['produtos'] = Produtos.objects.order_by('?').all()
+        context['funcionarios'] = Funcionario.objects.all()
+        context['produtos'] = Produtos.objects.all()
+        context['saldo'] = Saldo.objects.all()
         return context
     
     def form_valid(self, form, *args, **kwargs):
@@ -29,8 +31,21 @@ class IndexView(FormView):
         
         
 def atualiza_estoque(request, id):
-    novo_estoque = Produtos.objects.get(id=id)
+    produto = Produtos.objects.get(id=id) 
+    saldo, teste = Saldo.objects.get_or_create(produto = produto)
+    
     if request.method == 'POST':
-        novo_estoque.estoque = novo_estoque.estoque - 1
-        novo_estoque.save()
-    return render(request, 'index.html')
+        produto.estoque = produto.estoque - 1      
+        produto.save()
+        
+        saldo.saldo = saldo.saldo + produto.preco
+        saldo.save()
+
+
+    context = {}
+    context['servicos'] = Servico.objects.order_by('?').all() ##.order_by('?') faz embaralhar os dados apresentados no template
+    context['funcionarios'] = Funcionario.objects.all()
+    context['produtos'] = Produtos.objects.all()
+    context['saldo'] = Saldo.objects.all()
+    return render(request, 'index.html', context)
+

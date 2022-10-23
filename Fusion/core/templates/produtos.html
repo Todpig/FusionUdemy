@@ -6,10 +6,11 @@
         <div class="shape wow fadeInDown" data-wow-delay="0.3s"></div>
       </div>
       <div class="row">
-        <div class="col-md-6 col-lg-4 col-xs-12">
-                 
-              {% for p in produtos %}   
+        
+        {% for p in produtos %}  
 
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <div class="table wow fadeInRight" data-wow-delay="1.2s">        
               <div class="table wow fadeInLeft" data-wow-delay="1.2s">
                 <div class="team-img">
                   <img class="img-fluid" src="{{ p.imagem.url }}" alt="{{ p.nome }}">
@@ -24,13 +25,15 @@
                   <li>{{ p.descricao }}</li>
                   <li><span> Ainda restam {{ p.estoque }} disponíveis no estoque</span></li>
                 </ul>
-                <form action="{% url 'index' p.id %}"  method="post">
+                <form action="{% url 'index' p.id%}"  method="post">                 
                   {% csrf_token %}
                 <button type="submit" class="btn btn-common">Compre já</button>
               </form>
               </div>
-
-            {% endfor %}
+            
+            </div>
+          </div>
+          {% endfor %}
         </div>        
       </div>
     </div>

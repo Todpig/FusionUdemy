@@ -68,12 +68,17 @@ class Produtos(Base):
     imagem = StdImageField('Imagem', upload_to=get_file_path, null=True )
     estoque = models.IntegerField('Estoque', null=True)
     
+    
     class Meta:
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
 
     def __str__(self):
         return self.nome
-class Saldo:
-    saldo_inicial = models.IntegerField('Saldo inicial da empresa', null=True)
+class Saldo(Base):
+    saldo = models.DecimalField(decimal_places=2, max_digits=30, default=0.00)
+    produto = models.ForeignKey(Produtos, on_delete = models.CASCADE, null = True)
+    class Meta:
+        verbose_name = 'Saldo'
+        verbose_name_plural = 'Saldos'
     
